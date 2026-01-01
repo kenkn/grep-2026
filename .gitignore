@@ -1,3 +1,14 @@
 /target
 .serena/
 CLAUDE.md
+
+# Benchmark generated data
+/bench/corpus/code_tree/
+/bench/corpus/log/
+/bench/corpus/binary/
+/bench/results/*.json
+!/bench/results/.gitkeep
+!/bench/corpus/.gitkeep
+
+# Built binaries
+/bin/
