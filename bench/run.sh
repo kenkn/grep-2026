@@ -204,7 +204,6 @@ run_benchmark_single_file() {
     local hyperfine_opts=(
         "--warmup" "${WARMUP_RUNS}"
         "--runs" "${BENCH_RUNS}"
-        "--min-runs" "${MIN_RUNS}"
         "--export-json" "${output_file}"
         "--style" "full"
     )
@@ -274,7 +273,6 @@ run_benchmark_directory() {
     local hyperfine_opts=(
         "--warmup" "${WARMUP_RUNS}"
         "--runs" "${BENCH_RUNS}"
-        "--min-runs" "${MIN_RUNS}"
         "--export-json" "${output_file}"
         "--style" "full"
         "--shell" "bash"
@@ -321,6 +319,12 @@ add_metadata_to_result() {
         return
     fi
 
+    # Convert shell boolean to Python boolean
+    local cold_run_py="False"
+    if [[ "${RUN_COLD}" == "true" ]]; then
+        cold_run_py="True"
+    fi
+
     # Add metadata using Python (more reliable JSON handling)
     python3 << EOF
 import json
@@ -337,7 +341,7 @@ try:
         "size_mb": ${size_mb},
         "file_count": ${file_count},
         "timestamp": "${TIMESTAMP}",
-        "cold_run": ${RUN_COLD},
+        "cold_run": ${cold_run_py},
         "warmup_runs": ${WARMUP_RUNS},
         "bench_runs": ${BENCH_RUNS}
     }

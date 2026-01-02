@@ -40,9 +40,6 @@ WARMUP_RUNS=3
 # Number of measurement runs
 BENCH_RUNS=10
 
-# Minimum number of runs (hyperfine will run at least this many)
-MIN_RUNS=5
-
 #------------------------------------------------------------------------------
 # Corpus settings
 #------------------------------------------------------------------------------
